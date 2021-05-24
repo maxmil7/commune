@@ -6,22 +6,25 @@ class List extends React.Component {
     this.state = {};
   }
 
+  /**
+   * data example
+   *  "members": [
+      {
+        "name": "Star auto repair",
+        "category": "Car maintenance",
+        "phone": "123-456-7890",
+        "address": "123 Main St, Townsville FL"
+      }
+    ]
+  */
   async componentDidMount() {
-    /**
-     * data example
-     *  "members": [
-        {
-          "name": "Star auto repair",
-          "category": "Car maintenance",
-          "phone": "123-456-7890",
-          "address": "123 Main St, Townsville FL"
-        }
-      ]
-     */
-    const data = await fetch('data.json');
-    const json = await data.json();
-    this.setState({ members: json && json.members });
-    console.log(json);
+    let data;
+    try {
+      data = process.env.data;
+    } catch (err) {
+      console.log(err.message);
+    }
+    this.setState({ members: data && data.members });
   }
 
   render() {

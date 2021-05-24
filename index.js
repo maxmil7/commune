@@ -7,6 +7,10 @@ const listener = function(req, res) {
       url = 'index.html';
     }
     fs.readFile(`${__dirname}/public/${url}`, function(err, data) {
+      if (err) {
+        res.writeHead(500);
+        res.end(err.message);
+      }
       res.writeHead(200);
       res.end(data);
     })
